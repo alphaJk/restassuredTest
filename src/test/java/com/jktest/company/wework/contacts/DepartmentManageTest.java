@@ -3,7 +3,6 @@ package com.jktest.company.wework.contacts;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.Matchers.*;
 
 /**
