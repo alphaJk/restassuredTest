@@ -11,131 +11,19 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
+        <!--目前只有这个版本兼容-->
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <allure-maven.version>2.8</allure-maven.version>
-        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
-        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+        <!--<allure-maven.version>2.8</allure-maven.version>-->
+        <!--<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>-->
+        <!--<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>-->
     </properties>
     <build>
-        <!--<plugins>-->
-            <!-- JUnit 5 requires Surefire version 2.22.0 or higher -->
-            <!--<plugin>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.22.0</version>-->
-            <!--</plugin>-->
-
-            <!--<plugin>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>2.22.0</version>-->
-                <!--<configuration>-->
-                    <!--<testFailureIgnore>false</testFailureIgnore>-->
-                    <!--<argLine>-->
-                          <!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
-                    <!--</argLine>-->
-                    <!--<systemProperties>-->
-                        <!--<property>-->
-                            <!--<name>junit.jupiter.extensions.autodetection.enabled</name>-->
-                            <!--<value>true</value>-->
-                        <!--</property>-->
-                    <!--</systemProperties>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.junit.platform</groupId>-->
-                        <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
-                        <!--<version>1.2.0</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                    <!--<groupId>org.aspectj</groupId>-->
-                    <!--<artifactId>aspectjweaver</artifactId>-->
-                    <!--<version>${aspectj.version}</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>io.qameta.allure</groupId>-->
-                <!--<artifactId>allure-maven</artifactId>-->
-                <!--<version>${allure-maven.version}</version>-->
-                <!--<configuration>-->
-                    <!--<reportVersion>2.4.1</reportVersion>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-
-
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-surefire-plugin</artifactId>-->
-                <!--<version>${maven-surefire-plugin.version}</version>-->
-                <!--<configuration>-->
-                    <!--<properties>-->
-                        <!--<property>-->
-                            <!--<name>listener</name>-->
-                            <!--<value>io.qameta.allure.junit5.AllureJunit5</value>-->
-                        <!--</property>-->
-                    <!--</properties>-->
-                    <!--<includes>-->
-                        <!--<include>**/*Test*.java</include>-->
-                    <!--</includes>-->
-                    <!--<argLine>-->
-                         <!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"-->
-                    <!--</argLine>-->
-                    <!--<systemProperties>-->
-                        <!--<property>-->
-                            <!--<name>allure.results.directory</name>-->
-                            <!--<value>${project.basedir}/allure-results</value>-->
-                        <!--</property>-->
-                        <!--<property>-->
-                            <!--<name>junit.jupiter.extensions.autodetection.enabled</name>-->
-                            <!--<value>true</value>-->
-                        <!--</property>-->
-                    <!--</systemProperties>-->
-                    <!--<reportFormat>plain</reportFormat>-->
-                <!--</configuration>-->
-                <!--<dependencies>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.aspectj</groupId>-->
-                        <!--<artifactId>aspectjweaver</artifactId>-->
-                        <!--<version>${aspectj.version}</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.junit.platform</groupId>-->
-                        <!--<artifactId>junit-platform-surefire-provider</artifactId>-->
-                        <!--<version>1.1.0</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                        <!--<groupId>org.junit.jupiter</groupId>-->
-                        <!--<artifactId>junit-jupiter-engine</artifactId>-->
-                        <!--<version>${junit.jupiter.version}</version>-->
-                    <!--</dependency>-->
-                <!--</dependencies>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>io.qameta.allure</groupId>-->
-                <!--<artifactId>allure-maven</artifactId>-->
-                <!--<version>${allure-maven.version}</version>-->
-            <!--</plugin>-->
-            <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-compiler-plugin</artifactId>-->
-                <!--<version>${maven-compiler-plugin.version}</version>-->
-                <!--<configuration>-->
-                    <!--<source>1.8</source>-->
-                    <!--<target>1.8</target>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-
-
-
-
-
     <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
+            <!--必须大于2.22.0版本-->
             <version>2.22.0</version>
             <configuration>
                 <argLine>
@@ -151,8 +39,6 @@
             </dependencies>
         </plugin>
     </plugins>
-
-
     </build>
     <dependencies>
         <dependency>
@@ -249,5 +135,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
 </project>
