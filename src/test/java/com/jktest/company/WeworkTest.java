@@ -12,9 +12,4 @@ import org.junit.jupiter.api.Test;
  */
 class WeworkTest {
 
-    @Test
-    void getToken() {
-       String token =  Wework.getToken();
-        System.out.println(token);
-    }
 }

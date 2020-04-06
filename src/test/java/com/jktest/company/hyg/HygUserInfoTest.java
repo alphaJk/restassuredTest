@@ -1,6 +1,7 @@
 package com.jktest.company.hyg;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -12,14 +13,17 @@ import java.util.HashMap;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
+@DisplayName("HYG成员信息")
 class HygUserInfoTest {
     HygUserInfo hygUserInfo;
+
     @BeforeEach
     void setUp(){
       hygUserInfo = new HygUserInfo();
     }
 
     @Test
+    @DisplayName("搜索用户信息")
     void search() {
 
         HashMap<String,Object> map = new HashMap<>();
@@ -28,6 +32,7 @@ class HygUserInfoTest {
     }
 
     @Test
+    @DisplayName("通过HAR搜索用户信息")
     void testHar() {
         HashMap<String,Object> map = new HashMap<>();
         map.put("registeredResidence","");

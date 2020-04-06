@@ -2,6 +2,7 @@ package com.jktest.company.wework.contacts;
 
 import com.jktest.company.util.RandomMethod;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -17,6 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
+@DisplayName("成员业务线")
 class MemberManageTest {
 
     static MemberManage memberManage;
@@ -26,6 +28,7 @@ class MemberManageTest {
     }
 
     //数据驱动
+    @DisplayName("创建成员")
     @ParameterizedTest
 //    @ValueSource(strings = {"jk_","jk2_","jk3_" })
     @CsvSource({
