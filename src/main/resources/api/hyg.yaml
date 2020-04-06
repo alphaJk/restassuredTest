@@ -1,0 +1,9 @@
+method: "post"
+url: "http://116.62.70.7:8081/HongYuanMuseum/userInfo/getUserInfoByConditionalSearch"
+params:
+  beginNum: 0
+  number: 10
+  sex: "W"
+  dwellingPlace: "浙江省 杭州市"
+  maritalStatus: "未婚"
+  beginYear: 10
