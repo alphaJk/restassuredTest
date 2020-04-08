@@ -1,5 +1,5 @@
 method: "post"
-url: "http://116.62.70.7:8081/HongYuanMuseum/userInfo/getUserInfoByConditionalSearch"
+url: "/HongYuanMuseum/userInfo/getUserInfoByConditionalSearch"
 params:
   beginNum: 0
   number: 10

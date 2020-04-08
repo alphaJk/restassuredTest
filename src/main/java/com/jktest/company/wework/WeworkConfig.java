@@ -22,8 +22,8 @@ public class WeworkConfig {
     public String contantSecret;
     public String baseUrl;
 
-    public String current;
-    public HashMap<String, HashMap<String, String>> env;
+//    public String current;
+//    public HashMap<String, HashMap<String, String>> env;
 
     private static  WeworkConfig weworkConfig;
 

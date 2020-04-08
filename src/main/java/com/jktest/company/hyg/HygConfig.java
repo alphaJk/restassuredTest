@@ -16,8 +16,8 @@ import java.io.IOException;
 public class HygConfig {
     public String username;
     public String password;
-    public String token="M3924!srLJ+Cql6Ovn1QYiawsVJGL1bMhIL1Zla31HEWLJ3NzokAswG4BIBi+vP6ry/HkgWmR471neh8P4dExqGkzqbtChMjO27BcU.4262b2f52b5bc3dca74edddd819cf012";
-
+    public String token="M3924!srLJ+Cql6Ovn1QYiawsVJGL1bMhIL1Zla31HEWLJ3Ny1XIJ25bGd4JN0D5AEOpjYWmR471neh8PrdjPr6IVR52dkS9On8s7x.507e888c6e425003beafd9be511957ff";
+    public String baseUrl;
     private static HygConfig hygConfig;
     private HygConfig(){}
 

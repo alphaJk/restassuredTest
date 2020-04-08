@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
+import static org.hamcrest.Matchers.lessThan;
 
 /**
  * Created with IntelliJ IDEA.
@@ -60,7 +61,6 @@ public class Api {
      * @return
      */
     private Restful getApidataFromHar(String path,String pattern){
-        // TODO: 理解理解
         HarReader harReader = new HarReader();
         try {
             Har har = harReader.readFromFile(new File(
@@ -69,7 +69,7 @@ public class Api {
                     )));
             HarRequest request = new HarRequest();
             Boolean match=false;
-            //正则匹配需要的接口
+            //通过传进来的pattern，正则匹配包含需要的url的request数据
             for (HarEntry entry : har.getLog().getEntries()) {
                 request = entry.getRequest();
                 if (request.getUrl().matches(pattern)) {
@@ -84,25 +84,37 @@ public class Api {
             }
 
             Restful restful = new Restful();
-            restful.method = request.getMethod().name().toLowerCase();
             //初始化restful的信息
-            //fixed: 去掉url中的query部分
-            restful.url = request.getUrl();
-            restful.query = new HashMap<>();
-            for (HarQueryParam q : request.getQueryString()) {
-                restful.query.put(q.getName(), q.getValue());
-            }
+            restful.method = request.getMethod().name().toLowerCase();
+            //fix  去掉url中的query部分
+            String regex = "(\\?)(.*)";
+            String replaceStr = "";
+            //正则配出的字段从原url中替换成replaceStr
+            String newUrl = request.getUrl().replaceAll(regex,replaceStr);
+            //todo 多环境支持，删除域名（或者服务器地址端口号）
+            String check = "((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*";
+            restful.url = newUrl.replaceAll(check,replaceStr);
+            System.out.println(restful.url);
+
+
             //判断请求类型
-            if (restful.method.contains("get"))
+            if (restful.method.contains("get")) {
+                //获取请求参数
+                restful.query = new HashMap<>();
+                for (HarQueryParam q : request.getQueryString()) {
+                    restful.query.put(q.getName(), q.getValue());
+                }
                 return restful;
-            //fixed 判断formdata和json
-            //x-www-form-urlencoded类型请求
+            }
+            //fixed 判断formdata和json  x-www-form-urlencoded类型请求
             if (request.getPostData().getMimeType().contains("x-www-form-urlencoded")){
+                //获取x-www-form-urlencoded的请求参数
                 List<HarPostDataParam> testObj = request.getPostData().getParams();
                 restful.params = new HashMap<>();
-                for (HarPostDataParam x:testObj)
-                    restful.params.put(x.getName(), x.getValue());
+                for (HarPostDataParam p:testObj)
+                    restful.params.put(p.getName(), p.getValue());
             }else {
+                //获取JSON请求参数
                 restful.body = request.getPostData().getText();
             }
             return restful;
@@ -191,6 +203,7 @@ public class Api {
         }
         if (restful.body !=null){
             requestSpecification.body(restful.body).contentType(ContentType.JSON);
+            System.out.println(requestSpecification);
         }
          /*多环境支持
         String[] url=updateUrl(restful.url);
@@ -198,8 +211,14 @@ public class Api {
                 .header("Host",url[0])
                 .request(restful.method,url[1]).then().log().all().extract().response();*/
 
+        System.out.println("============="+"URL"+"==============");
+        System.out.println(restful.url);
+
         /* 请求接口，返回response */
-        return requestSpecification.request(restful.method,restful.url).then().log().all().extract().response();
+        return requestSpecification.request(restful.method,restful.url)
+                .then().log().all()
+                //响应时间大于2秒就报错
+                .time(lessThan(2000L)).extract().response();
     }
 
     /**
@@ -207,21 +226,21 @@ public class Api {
      * @param url
      * @return
      */
-    private String[] updateUrl(String url) {
-        //fixed: 多环境支持，替换url，更新header的host
-        //todo 换项目时记得把配置类替换
-        //todo 在初始化的时候替换url，修改从har读出来的域名，替换成别的环境的url
-        HashMap<String, String> hosts = WeworkConfig.getInstance().env.get(WeworkConfig.getInstance().current);
-        String host = "";
-        String urlNew = "";
-        for (Map.Entry<String, String> entry : hosts.entrySet()) {
-            if (url.contains(entry.getKey())) {
-                host = entry.getKey();
-                urlNew = url.replace(entry.getKey(), entry.getValue());
-            }
-        }
-        return new String[]{host, urlNew};
-    }
+//    private String[] updateUrl(String url) {
+//        //fixed: 多环境支持，替换url，更新header的host
+//        //todo 换项目时记得把配置类替换
+//        //todo 在初始化的时候替换url，修改从har读出来的域名，替换成别的环境的url
+//        HashMap<String, String> hosts = WeworkConfig.getInstance().env.get(WeworkConfig.getInstance().current);
+//        String host = "";
+//        String urlNew = "";
+//        for (Map.Entry<String, String> entry : hosts.entrySet()) {
+//            if (url.contains(entry.getKey())) {
+//                host = entry.getKey();
+//                urlNew = url.replace(entry.getKey(), entry.getValue());
+//            }
+//        }
+//        return new String[]{host, urlNew};
+//    }
 
 
     /**

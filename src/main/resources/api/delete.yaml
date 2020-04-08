@@ -1,4 +1,4 @@
 method: "get"
-url: "https://qyapi.weixin.qq.com/cgi-bin/department/delete"
+url: "/cgi-bin/department/delete"
 query:
   id: ""

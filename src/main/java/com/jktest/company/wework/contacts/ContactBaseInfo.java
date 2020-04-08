@@ -3,6 +3,7 @@ package com.jktest.company.wework.contacts;
 import com.jktest.company.Api;
 import com.jktest.company.wework.Wework;
 
+import com.jktest.company.wework.WeworkConfig;
 import io.restassured.specification.RequestSpecification;
 
 
@@ -24,8 +25,9 @@ public class ContactBaseInfo extends Api {
         RequestSpecification requestSpecification = super.getDefaultRequestSpecification();
         requestSpecification
 //                .proxy("192.168.3.7",8888)
+                .baseUri(WeworkConfig.getInstance().baseUrl)
                 .queryParam("access_token", Wework.getToken());
-//                .formParam("token",Wework.hygToken);
+
 
 
 

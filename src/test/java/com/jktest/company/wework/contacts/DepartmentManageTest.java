@@ -64,7 +64,7 @@ class DepartmentManageTest {
     @Test
     @DisplayName("通过HAR创建部门")
     void createHar() {
-        departmentManage.createHar("/api/create.har.json",".*department/create.*",null);
+        departmentManage.createHar("/api/create.har.json",".*department/create.*",null).then().body("errcode",equalTo(0)).body("errmsg",equalTo("created"));
         departmentManage.delete("20").then().body("errcode",equalTo(0));
     }
 

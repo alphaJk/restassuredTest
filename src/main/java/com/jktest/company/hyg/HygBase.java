@@ -1,8 +1,6 @@
 package com.jktest.company.hyg;
 
 import com.jktest.company.Api;
-import com.jktest.company.wework.Wework;
-import com.jktest.company.wework.WeworkConfig;
 import io.restassured.specification.RequestSpecification;
 
 /**
@@ -18,8 +16,8 @@ public class HygBase extends Api {
         RequestSpecification requestSpecification = super.getDefaultRequestSpecification();
         requestSpecification
 //                .proxy("192.168.3.7",8888)
-                // todo 设置测试环境 在Api类中操作
-//                .baseUri(WeworkConfig.getInstance().baseUrl)
+                // fix 多环境支持
+                .baseUri(HygConfig.getInstance().baseUrl)
                 .contentType("application/x-www-form-urlencoded;charset=UTF-8")
                 .formParam("token",Hyg.getToken());
         return requestSpecification;
