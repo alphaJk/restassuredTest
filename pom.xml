@@ -30,16 +30,16 @@
                     -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                 </argLine>
                 <!--设置allure-results输出位置-->
-                <systemProperties>
-                    <property>
-                        <name>allure.results.directory</name>
-                        <value>${project.build.directory}/allure-results</value>
-                    </property>
-                    <property>
-                        <name>allure.link.issue.pattern</name>
-                        <value>https://example.org/issue/{}</value>
-                    </property>
-                </systemProperties>
+                <!--<systemProperties>-->
+                    <!--<property>-->
+                        <!--<name>allure.results.directory</name>-->
+                        <!--<value>${project.build.directory}/allure-results</value>-->
+                    <!--</property>-->
+                    <!--<property>-->
+                        <!--<name>allure.link.issue.pattern</name>-->
+                        <!--<value>https://example.org/issue/{}</value>-->
+                    <!--</property>-->
+                <!--</systemProperties>-->
             </configuration>
             <dependencies>
                 <dependency>
