@@ -1,0 +1,12 @@
+method: "get"
+url: "/jktest"
+headers:
+  sign:
+  token:
+query:
+  productKey:
+  userId:
+  token:
+  client_id:
+  requestFrom:
+  timestamp:

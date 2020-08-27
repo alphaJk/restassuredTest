@@ -1,3 +1,0 @@
-method: "post"
-url: "/cgi-bin/department/update"
-body: "/data/update.json"

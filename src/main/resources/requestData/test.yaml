@@ -1,0 +1,10 @@
+method: "post"
+url: "/jktest"
+headers:
+params:
+  uid:
+  did:
+  region:
+  file_id:
+
+

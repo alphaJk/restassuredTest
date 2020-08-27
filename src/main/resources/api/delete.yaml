@@ -1,4 +1,0 @@
-method: "get"
-url: "/cgi-bin/department/delete"
-query:
-  id: ""

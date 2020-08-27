@@ -1,4 +1,0 @@
-method: "get"
-url: "/cgi-bin/department/list"
-query:
-  id: ""

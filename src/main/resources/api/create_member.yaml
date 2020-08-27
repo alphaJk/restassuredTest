@@ -1,3 +1,0 @@
-method: "post"
-url: "/cgi-bin/user/create"
-body: "/data/member/member.json"

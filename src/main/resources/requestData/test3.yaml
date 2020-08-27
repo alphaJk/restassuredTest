@@ -1,0 +1,6 @@
+method: "post"
+url: "/jktest"
+headers:
+  sign:
+  token:
+body: "/jsonData/basejson.json"
