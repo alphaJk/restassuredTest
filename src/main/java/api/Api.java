@@ -1,7 +1,6 @@
 package api;
 
 import com.esotericsoftware.yamlbeans.YamlReader;
-import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import de.sstoehr.harreader.HarReader;
@@ -13,13 +12,12 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.yaml.snakeyaml.Yaml;
 import java.io.*;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
 import static org.hamcrest.Matchers.lessThan;

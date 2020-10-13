@@ -15,7 +15,7 @@
         <!--目前只有这个版本兼容-->
         <junit.jupiter.version>5.3.1</junit.jupiter.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <slf4j.version>2.11.1</slf4j.version>
+        <slf4j.version>2.12.1</slf4j.version>
         <rest-assured.version>4.1.2</rest-assured.version>
         <spark.core>2.8.0</spark.core>
         <!--<allure-maven.version>2.8</allure-maven.version>-->
@@ -182,6 +182,11 @@
             <groupId>com.esotericsoftware.yamlbeans</groupId>
             <artifactId>yamlbeans</artifactId>
             <version>1.08</version>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.26</version>
         </dependency>
 
     </dependencies>
