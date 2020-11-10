@@ -3,7 +3,10 @@ package demo;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
+import java.util.HashMap;
+import java.util.Map;
+import static org.hamcrest.Matchers.*;
+import static io.restassured.RestAssured.given;
 /**
  * Created with IntelliJ IDEA.
  * User: jk
@@ -21,9 +24,21 @@ class ServiceDemoTest extends BaseTest{
     }
 
     @Test
+    @DisplayName("可选参数post请求form-data格式")
+    void jkTest11(){
+        api.jkTest1("111","222",null,"file_id_test").then().statusCode(200);
+    }
+
+    @Test
     @DisplayName("get请求")
     void jkTest2(){
-        api.jkTest2("111","222","333","file_id_test").then().statusCode(200);
+        api.jkTest2("111",null,"333","file_id_test").then().statusCode(200).body("code",equalTo(200));
+    }
+
+    @Test
+    @DisplayName("可选参数-get请求")
+    void jkTest22(){
+        api.jkTest2("111",null,"333","file_id_test").then().statusCode(200).body("code",equalTo(200));
     }
 
     @Test
@@ -35,4 +50,22 @@ class ServiceDemoTest extends BaseTest{
         json.put("data",data);
         api.jkTest3(json).then().statusCode(200);
     }
+
+    @Test
+    @DisplayName("get-pathParams")
+    void jkTest4(){
+        api.jkTest4().then().statusCode(200);
+    }
+    @Test
+    @DisplayName("post-pathParams")
+    void jkTest5(){
+        api.jkTest5().then().statusCode(200);
+    }
+
+    @Test
+    @DisplayName("post-queryParams")
+    void jkTes6(){
+        api.jkTest6().then().statusCode(200);
+    }
+
 }

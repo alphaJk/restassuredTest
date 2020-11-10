@@ -1,0 +1,4 @@
+method: "post"
+url: "/api/v1/message/query/deviceList"
+headers:
+queryParams:

@@ -95,4 +95,32 @@ public class ServiceDemo extends Api {
         headers.put("sign","1111111");
         return getResponseFromYaml("requestData/test3.yaml",json,headers);
     }
+
+    /**
+     *
+     * @return
+     */
+    public Response jkTest4(){
+        Map<String,String> headers = new HashMap<>();
+        headers.put("sign","1111111");
+        Map<String,Object> params = new HashMap<>();
+        params.put("arg1","arg1");
+        params.put("arg2","arg2");
+        return getResponseFromYaml("requestData/test4.yaml",params,headers);
+    }
+
+    public Response jkTest5(){
+        Map<String,Object> params = new HashMap<>();
+        params.put("arg1","arg1");
+        params.put("arg2","arg2");
+        return getResponseFromYaml("requestData/test5.yaml",params,null);
+    }
+
+    public Response jkTest6(){
+        Map<String,Object> params = new HashMap<>();
+        params.put("arg1","arg1");
+        params.put("arg2","arg2");
+        return getResponseFromYaml("requestData/test6.yaml",params,null);
+    }
+
 }

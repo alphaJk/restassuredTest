@@ -3,7 +3,7 @@ url: "/jktest"
 headers:
   sign:
   token:
-query:
+queryParams:
   productKey:
   userId:
   token:

@@ -1,0 +1,4 @@
+method: "get"
+url: "/api/v1/version"
+headers:
+query:

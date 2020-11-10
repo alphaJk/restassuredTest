@@ -32,7 +32,7 @@ class ApiTest {
     void demoTest(){
         Restful data = api.getApidataFromYaml("requestData/test.yaml");
         System.out.println("header参数--->"+data.getHeaders());
-        System.out.println("post请求form-data参数--->"+data.getParams());
+        System.out.println("post请求form-data参数--->"+data.getFormParams());
         System.out.println("post请求json格式--->"+data.getBody());
         System.out.println("请求类型--->"+data.getMethod());
         System.out.println("get请求参数--->"+data.getQuery());

@@ -1,0 +1,7 @@
+method: "post"
+url: "/api/v1/message/query/catalog"
+headers:
+queryParams:
+  deviceId: "34020000001110000001"
+  mode: 0
+  startNo: 0

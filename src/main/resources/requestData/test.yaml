@@ -1,7 +1,7 @@
 method: "post"
 url: "/jktest"
 headers:
-params:
+formParams:
   uid:
   did:
   region:

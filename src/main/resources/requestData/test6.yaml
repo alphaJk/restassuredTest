@@ -1,0 +1,8 @@
+method: "post"
+url: "/jktest"
+headers:
+  sign:
+  token:
+queryParams:
+  arg1:
+  arg2:

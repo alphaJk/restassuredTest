@@ -1,0 +1,8 @@
+method: "get"
+url: "/jktest/{arg1}/{arg2}"
+headers:
+  sign:
+  token:
+pathParams:
+  arg1:
+  arg2:

@@ -1,5 +1,7 @@
 package api;
 
+import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.esotericsoftware.yamlbeans.YamlReader;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
@@ -9,7 +11,6 @@ import de.sstoehr.harreader.model.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.Yaml;
@@ -38,7 +39,7 @@ public class Api {
     }
 
     /**
-     * json模板方法，传入map，修改json数据
+     * json模板方法，传入map，设定json数据
      * @param path
      * @param map
      * @return
@@ -46,7 +47,7 @@ public class Api {
     static String template(String path, Map<String, Object> map){
         try {
             DocumentContext documentContext = JsonPath.parse(Api.class.getResourceAsStream(path));
-            if (map != null) {
+            if (ObjectUtil.isNotNull(map)) {
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
                     documentContext.set(entry.getKey(), entry.getValue());
                 }
@@ -115,9 +116,9 @@ public class Api {
             if (request.getPostData().getMimeType().contains("x-www-form-urlencoded")){
                 //获取x-www-form-urlencoded的请求参数
                 List<HarPostDataParam> testObj = request.getPostData().getParams();
-                restful.params = new HashMap<>();
+                restful.formParams = new HashMap<>();
                 for (HarPostDataParam p:testObj)
-                    restful.params.put(p.getName(), p.getValue());
+                    restful.formParams.put(p.getName(), p.getValue());
             }else {
                 //获取JSON请求参数
                 restful.body = request.getPostData().getText();
@@ -161,27 +162,32 @@ public class Api {
      * @param map
      */
     private Restful updateApiMap(Restful restful, Map<String, Object> map){
-        if (map == null)
+        if (ObjectUtil.isNull(map))
             return restful;
-        //get请求的参数替换
-        if (restful.method.toLowerCase().contains("get")) {
-            //使用map里的数据替换restful中query的值
+
+        //form-data请求数据
+        if (restful.formParams != null) {
             for (Map.Entry<String, Object> entry : map.entrySet())
-                restful.query.replace(entry.getKey(), entry.getValue().toString());
+                if (entry.getValue() != null)
+                    restful.formParams.replace(entry.getKey(), entry.getValue().toString());
         }
-        //post请求的参数替换
-        if (restful.method.toLowerCase().contains("post")) {
-            //form-data数据类型
-            if (restful.params != null) {
-                for (Map.Entry<String, Object> entry : map.entrySet())
-                    restful.params.replace(entry.getKey(), entry.getValue().toString());
-            }
-            //json数据类型
-            if (restful.body != null) {
-                String filePath = restful.body;
-                // 通过body读取json地址
-                restful.body = template(filePath, map);
-            }
+        //queryParams请求数据
+        if (restful.queryParams != null) {
+            for (Map.Entry<String, Object> entry : map.entrySet())
+                if (entry.getValue() != null)
+                    restful.queryParams.replace(entry.getKey(), entry.getValue().toString());
+        }
+        //pathParams请求数据
+        if (restful.pathParams != null) {
+            for (Map.Entry<String, Object> entry : map.entrySet())
+                if (entry.getValue() != null)
+                    restful.pathParams.replace(entry.getKey(), entry.getValue().toString());
+        }
+        //json数据类型
+        if (ObjectUtil.isNotNull(restful.body)) {
+            String filePath = restful.body;
+            // 通过body读取json地址
+            restful.body = template(filePath, map);
         }
         return restful;
     }
@@ -196,7 +202,7 @@ public class Api {
      * @return
      */
     private Restful updateApiMap(Restful restful,Map<String,Object> map,Map<String,String> headers){
-        if (headers !=null)
+        if (ObjectUtil.isNotNull(headers))
             restful.headers=headers;
         return updateApiMap(restful,map);
     }
@@ -205,7 +211,7 @@ public class Api {
      * 获取发送http请求的对象
      * @return
      */
-    public RequestSpecification getDefaultRequestSpecification() {
+    protected RequestSpecification getDefaultRequestSpecification() {
         return given().log().all();
     }
 
@@ -217,25 +223,34 @@ public class Api {
     private Response getResponseFromRestful(Restful restful){
         /* 每次请求前先调用初始化方法（子类覆写的） */
         RequestSpecification requestSpecification = getDefaultRequestSpecification();
-        if (restful.headers !=null)
+        if (ObjectUtil.isNotNull(restful.headers))
             requestSpecification.headers(restful.headers);
-        //判断请求提是否为空
-        if (restful.query !=null){
-            /* 遍历query，放入rest-assured的queryParam中 */
-            for (Map.Entry<String, String> entry : restful.query.entrySet())
-                /*可选参数过滤*/
-                if (StringUtils.isNotEmpty(entry.getValue()))
-                    requestSpecification.queryParam(entry.getKey(), entry.getValue());
-        }
-        if (restful.params !=null){
-            for (Map.Entry<String, String> entry : restful.params.entrySet())
-                /*可选参数过滤*/
-                if (StringUtils.isNotEmpty(entry.getValue()))
-                    requestSpecification.formParam(entry.getKey(), entry.getValue());
 
-            requestSpecification.contentType("application/x-www-form-urlencoded;charset=UTF-8");
+        //判断请求提是否为空
+        if (ObjectUtil.isNotNull(restful.formParams)){
+            for (Map.Entry<String, String> entry : restful.formParams.entrySet())
+                /*可选参数过滤*/
+                if (StrUtil.isNotEmpty(entry.getValue()))
+                    requestSpecification.formParam(entry.getKey(), entry.getValue());
+            requestSpecification.contentType(ContentType.URLENC.withCharset("UTF-8"));
         }
-        if (restful.body !=null){
+        if (ObjectUtil.isNotNull(restful.queryParams)){
+            for (Map.Entry<String, String> entry : restful.queryParams.entrySet())
+                /*可选参数过滤*/
+                if (StrUtil.isNotEmpty(entry.getValue()))
+                    requestSpecification.queryParam(entry.getKey(), entry.getValue());
+            requestSpecification.contentType(ContentType.URLENC.withCharset("UTF-8"));
+        }
+
+        if (ObjectUtil.isNotNull(restful.pathParams)){
+            for (Map.Entry<String, String> entry : restful.pathParams.entrySet())
+                /*可选参数过滤*/
+                if (StrUtil.isNotEmpty(entry.getValue()))
+                    requestSpecification.pathParam(entry.getKey(), entry.getValue());
+            requestSpecification.contentType(ContentType.URLENC.withCharset("UTF-8"));
+        }
+
+        if (ObjectUtil.isNotNull(restful.body)){
             requestSpecification.body(restful.body).contentType(ContentType.JSON);
         }
 
