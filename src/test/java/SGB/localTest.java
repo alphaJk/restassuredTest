@@ -13,7 +13,7 @@ import static org.hamcrest.Matchers.*;
  */
 public class localTest extends BaseTest {
     @Test
-    @DisplayName("")
+    @DisplayName("test")
     void getVersion(){
         api.getVersion().then().statusCode(200).body("msg",equalTo("OK"));
     }
