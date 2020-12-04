@@ -13,7 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
         <!--目前只有这个版本兼容-->
-        <junit.jupiter.version>5.3.1</junit.jupiter.version>
+        <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <!--<aspectj.version>1.9.6</aspectj.version>-->
         <slf4j.version>2.13.2</slf4j.version>
         <rest-assured.version>4.3.1</rest-assured.version>
@@ -66,7 +66,7 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.jupiter.version}</version>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.jayway.jsonpath</groupId>
@@ -83,6 +83,12 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.6.2</version>
             <scope>test</scope>
         </dependency>
         <!--Jackson-->
@@ -206,7 +212,6 @@
             <artifactId>hutool-all</artifactId>
             <version>5.4.2</version>
         </dependency>
-
     </dependencies>
 
     <build>

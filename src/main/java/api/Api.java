@@ -166,21 +166,21 @@ public class Api {
             return restful;
 
         //form-data请求数据
-        if (restful.formParams != null) {
+        if (ObjectUtil.isNotNull(restful.formParams)) {
             for (Map.Entry<String, Object> entry : map.entrySet())
-                if (entry.getValue() != null)
+                if (ObjectUtil.isNotNull(entry.getValue()))
                     restful.formParams.replace(entry.getKey(), entry.getValue().toString());
         }
         //queryParams请求数据
-        if (restful.queryParams != null) {
+        if (ObjectUtil.isNotNull(restful.queryParams)) {
             for (Map.Entry<String, Object> entry : map.entrySet())
-                if (entry.getValue() != null)
+                if (ObjectUtil.isNotNull(entry.getValue()))
                     restful.queryParams.replace(entry.getKey(), entry.getValue().toString());
         }
         //pathParams请求数据
-        if (restful.pathParams != null) {
+        if (ObjectUtil.isNotNull(restful.pathParams)){
             for (Map.Entry<String, Object> entry : map.entrySet())
-                if (entry.getValue() != null)
+                if (ObjectUtil.isNotNull(entry.getValue()))
                     restful.pathParams.replace(entry.getKey(), entry.getValue().toString());
         }
         //json数据类型
