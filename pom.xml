@@ -18,6 +18,9 @@
         <slf4j.version>2.13.2</slf4j.version>
         <rest-assured.version>4.3.1</rest-assured.version>
         <spark.core>2.8.0</spark.core>
+        <ebean.version>12.5.1</ebean.version>
+        <mysql.connector.version>8.0.22</mysql.connector.version>
+
         <!--<allure-maven.version>2.8</allure-maven.version>-->
         <!--<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>-->
         <!--<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>-->
@@ -211,6 +214,46 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vaasplus.bms</groupId>
+            <artifactId>bms-model</artifactId>
+            <version>3.2.0.RELEASE</version>
+        </dependency>
+
+        <!--ebean数据库工具相关-->
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean-datasource</artifactId>
+            <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean-migration</artifactId>
+            <version>12.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean-core</artifactId>
+            <version>${ebean.version}</version>
+        </dependency>
+        <!-- support for query beans -->
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>ebean-querybean</artifactId>
+            <version>${ebean.version}</version>
+        </dependency>
+        <!-- java annotation processor to generate query beans -->
+        <dependency>
+            <groupId>io.ebean</groupId>
+            <artifactId>querybean-generator</artifactId>
+            <version>${ebean.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
         </dependency>
     </dependencies>
 

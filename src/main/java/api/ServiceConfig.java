@@ -1,11 +1,5 @@
 package api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-
-import java.io.IOException;
-import java.util.Map;
-
 /**
  * Created with IntelliJ IDEA.
  * User: jk
@@ -14,7 +8,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  * Description:
  */
-public class ServiceConfig {
+/*public class ServiceConfig {
 
     public Map<String,String> sign;
     public Map<String,String> login;
@@ -36,7 +30,7 @@ public class ServiceConfig {
 
     public static ServiceConfig getInstance(){
         if(Config == null)
-            Config = load("/config/serviceconfig.yaml");
+            Config = load("/config/config.yaml");
         return Config;
     }
 
@@ -51,26 +45,26 @@ public class ServiceConfig {
         }
     }
 
-   /* *//**
+   *//* *//**//**
      * 获取sign验证的地址
      * @return
-     *//*
+     *//**//*
     public String getSignUrl(){
         return Config.sign.get("url").toString();
     }
 
-    *//**
+    *//**//**
      * 获取sign用户名
      * @return
-     *//*
+     *//**//*
     public String getSignUsername(){
         return Config.sign.get("username").toString();
     }
 
-    *//**
+    *//**//**
      * 获取sign密码
      * @return
-     *//*
+     *//**//*
     public String getSignPassword(){
         return Config.sign.get("password");
     }
@@ -159,5 +153,5 @@ public class ServiceConfig {
     }
     public String getBlCloudPW(){
         return Config.bl_cloudlogin.get(currentServer).get("password");
-    }*/
-}
+    }*//*
+}*/

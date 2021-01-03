@@ -19,8 +19,8 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.useRelaxedHTTPSValidation;
+
+import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.lessThan;
 
 /**
@@ -32,10 +32,12 @@ import static org.hamcrest.Matchers.lessThan;
  * Description:
  */
 public class Api {
+    private RequestSpecification requestSpecification;
 
     private static Logger log = LoggerFactory.getLogger(Api.class);
     public Api(){
         useRelaxedHTTPSValidation();
+        requestSpecification =  given().log().all();
     }
 
     /**
@@ -67,7 +69,7 @@ public class Api {
      * @param pattern 正则匹配的需要的内容
      * @return
      */
-    private Restful getApidataFromHar(String path, String pattern){
+    private Restful getApiDataFromHar(String path, String pattern){
         HarReader harReader = new HarReader();
         try {
             Har har = harReader.readFromFile(new File(
@@ -143,7 +145,7 @@ public class Api {
      * @param path
      * @return
      */
-    Restful getApidataFromYaml(String path){
+    Restful getApiDataFromYaml(String path){
         Yaml yaml = new Yaml();
         try{
             InputStream in = YamlReader.class.getClassLoader().getResourceAsStream(path);
@@ -208,11 +210,11 @@ public class Api {
     }
 
     /**
-     * 获取发送http请求的对象
-     * @return
+     * 初始化host
+     * @param host
      */
-    protected RequestSpecification getDefaultRequestSpecification() {
-        return given().log().all();
+    protected void defaultRequestSpecificationInit(String host) {
+        requestSpecification.baseUri(host);
     }
 
     /**
@@ -221,8 +223,6 @@ public class Api {
      * @return
      */
     private Response getResponseFromRestful(Restful restful){
-        /* 每次请求前先调用初始化方法（子类覆写的） */
-        RequestSpecification requestSpecification = getDefaultRequestSpecification();
         if (ObjectUtil.isNotNull(restful.headers))
             requestSpecification.headers(restful.headers);
 
@@ -249,7 +249,6 @@ public class Api {
                     requestSpecification.pathParam(entry.getKey(), entry.getValue());
             requestSpecification.contentType(ContentType.URLENC.withCharset("UTF-8"));
         }
-
         if (ObjectUtil.isNotNull(restful.body)){
             requestSpecification.body(restful.body).contentType(ContentType.JSON);
         }
@@ -261,7 +260,48 @@ public class Api {
                 .time(lessThan(4000L)).extract().response();
     }
 
+    public Response methodPost(String uri, Map<String,String> headers, Map<String,String> form){
+        if (ObjectUtil.isNotNull(headers))
+            requestSpecification.headers(headers);
+        if (ObjectUtil.isNotNull(form))
+            requestSpecification.formParams(form);
+        return requestSpecification
+                .contentType(ContentType.URLENC.withCharset("UTF-8"))
+                .request("post",uri)
+                .then().log().all()
+                .time(lessThan(4000L))
+                .extract()
+                .response();
+    }
 
+    public Response methodPostJson(String uri, Map<String,String> headers, String jsonString){
+        if (ObjectUtil.isNotNull(headers))
+            requestSpecification.headers(headers);
+        if (StrUtil.isNotEmpty(jsonString))
+            requestSpecification.body(jsonString);
+        return requestSpecification
+                .contentType(ContentType.JSON)
+                .request("post",uri)
+                .then().log().all()
+                .time(lessThan(4000L))
+                .extract()
+                .response();
+
+    }
+
+    public Response methodGet(String uri, Map<String,String> headers, Map<String,String> form){
+        if (ObjectUtil.isNotNull(headers))
+            requestSpecification.headers(headers);
+        if (ObjectUtil.isNotNull(form))
+            requestSpecification.params(form);
+        return requestSpecification
+                .contentType(ContentType.ANY)
+                .request("get",uri)
+                .then().log().all()
+                .time(lessThan(4000L))
+                .extract()
+                .response();
+    }
 
     /**
      * 执行请操作FromYaml
@@ -270,7 +310,7 @@ public class Api {
      * @return
      */
     protected Response getResponseFromYaml(String path, Map<String, Object> map, Map<String, String> headers){
-        Restful restful=getApidataFromYaml(path);
+        Restful restful= getApiDataFromYaml(path);
         restful=updateApiMap(restful,map,headers);
         return getResponseFromRestful(restful);
     }
@@ -284,7 +324,7 @@ public class Api {
      * @return
      */
     public Response getResponesFromHar(String path, String pattern, Map<String,Object> map){
-        Restful restful=getApidataFromHar(path,pattern);
+        Restful restful= getApiDataFromHar(path,pattern);
         restful=updateApiMap(restful,map);
         return getResponseFromRestful(restful);
     }
@@ -304,5 +344,8 @@ public class Api {
         //todo: 分析swagger codegen
         return null;
     }
+
+
+
 
 }
