@@ -1,0 +1,137 @@
+currentServer: "stg"
+#currentServer: "online"
+
+#毕方环境
+env_bf:
+  esd:
+    local: ""
+    dev: ""
+    stg: "https://esd-stg.blurams.cn"
+    online: "https://esd.blurams.cn"
+  openapi:
+    local: ""
+    dev: ""
+    stg: "https://openapi-stg.blurams.cn"
+    online: "https://openapi.blurams.cn"
+  cloud:
+    local: ""
+    dev: ""
+    stg: "https://api-stg.blurams.cn"
+    online: "https://api.blurams.cn"
+
+#朱雀环境
+env_zq:
+  esd:
+    local: ""
+    dev: ""
+    stg: "https://vd-esd-stg.wojiazongguan.cn"
+    online: "https://vd-esd.wojiazongguan.cn"
+  bms:
+    local: ""
+    dev: ""
+    stg: "https://vd-bms-stg.wojiazongguan.cn"
+    online: "https://vd-bms.wojiazongguan.cn"
+  #联通新零售
+  bmsUnicomRetail:
+    local: ""
+    dev: ""
+    stg: "https://vd-soul-stg.wojiazongguan.cn"
+    online: "https://vd-soul.wojiazongguan.cn"
+  esdUnicomRetail:
+    local: ""
+    dev: ""
+    stg: "http://vd-soul-stg.wojiazongguan.cn"
+    online: "http://vd-soul.wojiazongguan.cn"
+  faceapi:
+    local: ""
+    dev: ""
+    stg: "http://vd-soul-stg.wojiazongguan.cn"
+    online: "http://vd-soul.wojiazongguan.cn"
+  soul:
+    local: ""
+    dev: ""
+    stg: "http://vd-soul-stg.wojiazongguan.cn"
+    online: "http://vd-soul.wojiazongguan.cn"
+#海外blurams
+env_blurams:
+  gms:
+    local: ""
+    dev: ""
+    stg: "https://gms.stg.blurams.com"
+    online: "https://gms.stg.blurams.com"
+  upns:
+    local: "http://172.26.19.220:8081"
+    dev: "https://upns.blurams.vip"
+    stg: "https://upns.stg.blurams.com"
+    online: ""
+  face:
+    local: ""
+    dev: ""
+    stg: ""
+    online: ""
+  esd:
+    local: ""
+    dev: ""
+    stg: "https://esd.stg.blurams.com"
+    online: ""
+  cloud:
+    local: ""
+    dev: ""
+    stg: "https://api.stg.blurams.com"
+    online: ""
+  soul:
+    local: ""
+    dev: ""
+    stg: "https://soul-stg.blurams.com"
+    online: "https://soul.blurams.com"
+  coredata:
+    local: ""
+    dev: ""
+    stg: "http://api.stg.blurams.com"
+    online: "https://api.blurams.com"
+# 鉴权接口
+sign:
+  url: http://172.26.10.94:8088
+#  url: http://172.26.22.155:8080
+#  url: https://www.dandan.cloud
+  username: jinkai
+  password: Ewq10182
+
+#esd相关登录账号
+# 毕方
+cloudlogin:
+  stg:
+    username: "15158113482"
+    password: "Aa123456"
+  online:
+    username: "13735452031"
+#    username: "15158113482"
+    password: "Aa123456"
+#    password: "Aa1234567890"
+#朱雀
+zq_cloudlogin:
+  stg:
+    username: "18605816317"
+    password: "Aa123456"
+  online:
+    username: "18605816317"
+    password: "Aa123456"
+# blurams
+bl_cloudlogin:
+  stg:
+    username: "zouxiaoqin@visioninsight.com"
+    password: "Aa123456"
+  online:
+    username: ""
+    password: ""
+
+# blurams-app用户登录
+login:
+  local: ""
+  dev: ""
+  stg: "http://api.stg.blurams.com"
+  online: "https://api.blurams.com"
+  username: "2983394455@qq.com"
+  password: "Yy123456"
+
+region: 国内开放平台联调

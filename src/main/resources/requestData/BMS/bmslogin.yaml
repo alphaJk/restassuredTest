@@ -1,0 +1,15 @@
+method: "post"
+url: "/api/v1/users/sessions"
+headers:
+  Accept-AccessKey:
+  Accept-Time:
+  Accept-Sign:
+formParams:
+  username:
+  pwd:
+  verifyCode:
+  clientInfo:
+  productKey:
+  orgName:
+  orgId:
+

@@ -1,0 +1,6 @@
+method: "post"
+url: "/api/v1/refreshSubscribe"
+headers:
+queryParams:
+  subscribeId: "34020000001110000001"
+  expire: 60

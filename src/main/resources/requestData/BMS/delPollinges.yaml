@@ -1,0 +1,11 @@
+method: "delete"
+url: "/api/v1/pollinges/{pollingId}/cameras/{cameraId}"
+headers:
+  Accept-AccessKey:
+  Accept-Time:
+  Accept-Sign:
+  token:
+pathParams:
+  pollingId:
+  cameraId:
+

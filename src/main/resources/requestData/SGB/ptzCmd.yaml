@@ -1,0 +1,8 @@
+method: "post"
+url: "/api/v1/message/control/ptzCmd"
+headers:
+queryParams:
+  deviceId: "34020000001110000001"
+  channelId: ""
+  code: 0
+  speed: 100

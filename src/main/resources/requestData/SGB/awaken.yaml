@@ -1,0 +1,23 @@
+method: "post"
+url: "/api/v1/media/awaken"
+headers:
+queryParams:
+  deviceId: "34020000001110000001"
+  channelId:
+  type:
+  expireat:
+  autoRebuild:
+  startTime:
+  endTime:
+  pullProtocol:
+  tcpConnectMode:
+  local_relay_ip:
+  lan_relay_ip:
+  wan_relay_ip:
+  relay_port:
+  ssl_relay_port:
+  version:
+  device_id:
+  token:
+  user_name:
+  channel_no:

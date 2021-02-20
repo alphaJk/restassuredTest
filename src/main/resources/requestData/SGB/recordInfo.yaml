@@ -1,0 +1,9 @@
+method: "post"
+url: "/api/v1/message/query/recordInfo"
+headers:
+queryParams:
+  deviceId: "34020000001110000001"
+  channelId:
+  startTime:
+  endTime:
+  type:

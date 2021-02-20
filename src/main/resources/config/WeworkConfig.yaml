@@ -1,9 +1,0 @@
-agentId: "1000002"
-#应用id
-secret: "B3dJVkrwBgSsjt4HMLbRUDNSsrwvetK3A_RdiJEk8Zk"
-#企业id
-corpid: "ww69d0d89ee8001c4f"
-#通讯录id
-contantSecret: "4e5Eh5XtrsEYyT6tS9O6cJjfTLGmsCf1GdmLY6RKmpY"
-#环境配置
-baseUrl: "https://qyapi.weixin.qq.com/"

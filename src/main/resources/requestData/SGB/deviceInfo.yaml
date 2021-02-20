@@ -1,0 +1,6 @@
+method: "post"
+url: "/api/v1/message/query/deviceStatus"
+headers:
+queryParams:
+  deviceId: "34020000001110000001"
+  channelId:

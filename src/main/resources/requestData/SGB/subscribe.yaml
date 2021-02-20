@@ -1,0 +1,9 @@
+method: "post"
+url: "/api/v1/subscribe"
+headers:
+queryParams:
+  ip: "34020000001110000001"
+  port: 0
+  expire: 0
+  secure:
+  type:
