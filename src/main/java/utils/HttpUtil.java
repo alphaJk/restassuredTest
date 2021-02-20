@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacAlgorithms;

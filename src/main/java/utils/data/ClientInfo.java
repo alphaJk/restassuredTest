@@ -1,4 +1,4 @@
-package Utils.data;
+package utils.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.vaasplus.bms.model.enums.RequestSource;

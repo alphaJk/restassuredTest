@@ -2,12 +2,10 @@ package service.SGB;
 
 import api.Api;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import service.test.demo.ServiceDemo;
-import java.util.HashMap;
+
 import java.util.Map;
-import cn.hutool.core.util.ObjectUtil;
-import cn.hutool.core.util.StrUtil;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +16,6 @@ import cn.hutool.core.util.StrUtil;
  * Description:
  */
 public class ServiceSGBApi extends Api {
-    private String host;
     private static ServiceSGBApi serviceSGBApi;
 
     public static ServiceSGBApi getInstance() {
@@ -32,31 +29,103 @@ public class ServiceSGBApi extends Api {
         return serviceSGBApi;
     }
     public void init(String host){
-        this.host = host;
-    }
-
-    @Override
-    protected RequestSpecification getDefaultRequestSpecification() {
-        RequestSpecification requestSpecification = super.getDefaultRequestSpecification();
-        requestSpecification.baseUri(host);
-        return requestSpecification;
+        setBaseUri(host);
     }
 
     public Response getVersion(){
         return getResponseFromYaml("requestData/SGB/version.yaml",null,null);
     }
 
+    /**
+     * 向GB28181接入网关订阅消息
+     * @param params
+     * @return
+     */
+    public Response getSubscribe(Map<String,Object> params){
+        return  getResponseFromYaml("requestData/SGB/subscribe.yaml",params,null);
+    }
+
+    /**
+     * 刷新订阅
+     * @param params
+     * @return
+     */
+    public Response refreshSubscribe(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/refreshSubscribe.yaml",params,null);
+    }
+
+    /**
+     * 取消已有的订阅
+     * @param params
+     * @return
+     */
+    public Response unsubscribe(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/unsubscribe.yaml",params,null);
+
+    }
+    /**
+     * 接入平台的信息查询
+     * @return
+     */
     public Response getDeviceList(){
         return getResponseFromYaml("requestData/SGB/getDeviceList.yaml",null,null);
     }
 
-    public Response catalog(String deviceId,String mode,String startNo){
-        Map<String,Object> params = new HashMap<>();
-        params.put("deviceId",deviceId);
-        if (StrUtil.isNotEmpty(mode))
-            params.put("mode",mode);
-        if (StrUtil.isNotEmpty(startNo))
-            params.put("startNo",startNo);
+    /**
+     * 查询平台的组织设备信息
+     * @param params
+     * @return
+     */
+    public Response catalog(Map<String,Object> params){
         return getResponseFromYaml("requestData/SGB/catalog.yaml",params,null);
+    }
+
+    /**
+     * 获取组织设备的信息
+     * @param params
+     * @return
+     */
+    public Response getDeviceInfo(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/deviceInfo.yaml",params,null);
+    }
+
+    /**
+     * 获取组织设备的状态
+     * @param params
+     * @return
+     */
+    public Response getDeviceStatus(Map<String,Object> params) {
+        return getResponseFromYaml("requestData/SGB/deviceStatus.yaml", params, null);
+    }
+
+    /**
+     * 设备录像查询
+     * @param params
+     * @return
+     */
+    public Response getRecordInfo(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/recordInfo.yaml", params, null);
+    }
+
+    /**
+     * ptz控制
+     * @param params
+     * @return
+     */
+    public Response ptzCmd(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/ptzCmd.yaml", params, null);
+    }
+
+    /**
+     * 直播、回放、录像下载
+     * @param params
+     * @return
+     */
+    public Response awaken(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/awaken.yaml", params, null);
+    }
+
+    public Response mediaStop(Map<String,Object> params){
+        return getResponseFromYaml("requestData/SGB/mediaStop.yaml", params, null);
     }
 }

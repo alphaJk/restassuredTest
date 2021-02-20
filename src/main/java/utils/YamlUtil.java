@@ -1,4 +1,4 @@
-package Utils;
+package utils;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;

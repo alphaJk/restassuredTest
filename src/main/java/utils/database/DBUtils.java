@@ -1,4 +1,4 @@
-package Utils.database;
+package utils.database;
 
 
 import io.ebean.*;

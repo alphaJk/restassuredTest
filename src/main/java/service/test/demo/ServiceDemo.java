@@ -3,8 +3,8 @@ package service.test.demo;
 import api.Api;
 import com.alibaba.fastjson.JSONObject;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.apache.commons.lang3.StringUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,33 +17,22 @@ import java.util.Map;
  * Description:
  */
 public class ServiceDemo extends Api {
-    private String host;
-    private static ServiceDemo serviceDemo;
 
-    public static ServiceDemo getInstance() {
-        if (serviceDemo == null) {
-            synchronized (ServiceDemo.class) {
-                if (serviceDemo == null) {
-                    serviceDemo = new ServiceDemo();
-                }
-            }
-        }
-        return serviceDemo;
-    }
+//    private static ServiceDemo serviceDemo = null;
+//
+//    public static ServiceDemo getInstance() {
+//        if (serviceDemo == null) {
+//            synchronized (ServiceDemo.class) {
+//                if (serviceDemo == null) {
+//                    serviceDemo = new ServiceDemo();
+//                }
+//            }
+//        }
+//        return serviceDemo;
+//    }
 
     public void init(String host){
-        this.host = host;
-    }
-
-    /**
-     * 初始化请求对象
-     * @return requestSpecification
-     */
-    @Override
-    public RequestSpecification getDefaultRequestSpecification() {
-        RequestSpecification requestSpecification = super.getDefaultRequestSpecification();
-        requestSpecification.baseUri(host);
-        return requestSpecification;
+        setBaseUri(host);
     }
 
     /**
@@ -121,6 +110,13 @@ public class ServiceDemo extends Api {
         params.put("arg1","arg1");
         params.put("arg2","arg2");
         return getResponseFromYaml("requestData/test6.yaml",params,null);
+    }
+
+    public Response sampleRequestTest1(){
+        Map<String,Object> params = new HashMap<>();
+        params.put("arg1","arg1");
+        params.put("arg2","arg2");
+        return methodGet("/jktest1",null,null);
     }
 
 }

@@ -1,6 +1,6 @@
-package Utils.data;
+package utils.data;
 
-import Utils.YamlUtil;
+import utils.YamlUtil;
 import api.Api;
 
 import java.io.IOException;

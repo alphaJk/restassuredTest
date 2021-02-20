@@ -1,4 +1,4 @@
-package Utils.database;
+package utils.database;
 
 public class DBConfig {
 
