@@ -1,9 +1,5 @@
 package utils;
 
-import io.qameta.allure.Allure;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,19 +21,4 @@ public class Utils {
         Matcher matcher = pattern.matcher(input);
         return matcher.find();
     }
-
-    /**
-     * 添加日志到Allure
-     */
-    public static void addHttpLogToAllure(String src) {
-        try {
-
-            Allure.addAttachment("接口请求响应日志",
-//                    new FileInputStream("src/main/resources/test.log"));
-                    new FileInputStream(src));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

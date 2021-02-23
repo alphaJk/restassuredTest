@@ -7,7 +7,6 @@ import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import io.restassured.specification.FilterableRequestSpecification;
 import io.restassured.specification.FilterableResponseSpecification;
-import lombok.extern.slf4j.Slf4j;
 import utils.JSONSerializerUtil;
 
 import java.util.Map;
@@ -18,9 +17,8 @@ import java.util.Map;
  * Date: 2021-02-20
  * Time: 16:28
  * To change this template use File | Settings | File Templates.
- * Description:
+ * Description: restAssured的日志通过过滤器添加到Allure中
  */
-@Slf4j
 public class AllureRestAssuredLogFilter implements Filter {
     @Override
     public Response filter(FilterableRequestSpecification requestSpec, FilterableResponseSpecification responseSpec, FilterContext ctx) {
@@ -29,11 +27,9 @@ public class AllureRestAssuredLogFilter implements Filter {
         String url = requestSpec.getURI();
         String method = requestSpec.getMethod();
         Headers headers = requestSpec.getHeaders();
-
         Map reqFormParams =  requestSpec.getFormParams();
         String requestsStr = reqFormParams != null && reqFormParams.size() > 0 ? JSONSerializerUtil.serialize(reqFormParams)
                 : JSONSerializerUtil.serialize(requestSpec.getBody());
-
         String requestData = String.format("%s\n%s\n%s\n%s\n",url,method,headers,requestsStr);
         String responseData = String.format("%s\n%s\n",response.getStatusCode(),response.asString());
         //日志发送到Allure报告中

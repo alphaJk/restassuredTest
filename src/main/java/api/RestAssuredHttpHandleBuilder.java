@@ -10,7 +10,6 @@ import io.restassured.http.Method;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import utils.Utils;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Map;
@@ -312,6 +311,13 @@ public class RestAssuredHttpHandleBuilder {
                 .time(lessThan(LESS_TIME)).extract().response();
     }
 
+    /**
+     * 参数校验
+     * @param httpClient
+     * @param headers
+     * @param uri
+     * @param filters
+     */
     private void paramsCheck(RequestSpecification httpClient,Map<String, ?> headers,String uri,Filter...filters){
         if (ObjectUtil.isNotNull(filters) && filters.length>0)
             httpClient.filters(Arrays.asList(filters));
@@ -322,7 +328,12 @@ public class RestAssuredHttpHandleBuilder {
     }
 
 
-
+    /**
+     * uri校验
+     * @param httpClient
+     * @param parametersMap
+     * @param uri
+     */
     private void uriTypeCheck(RequestSpecification httpClient, Map<String, ?> parametersMap, String uri){
         if (ObjectUtil.isNotNull(parametersMap)){
             if (Utils.isExistBrace(uri)){
